@@ -1,0 +1,42 @@
+﻿# Visual Studio
+.vs/
+*.sln.docstates
+*.user
+*.suo
+
+# 构建产物
+#   中间产物 -> YuanShen-UnlockerLite\x64\<配置>\   （x64/ 规则匹配任意层级，两处一并覆盖）
+#   二进制   -> x64\<配置>\
+x64/
+*.exe
+*.dll
+*.pdb
+*.ilk
+*.lib
+*.exp
+*.obj
+*.idb
+*.pch
+*.tlog
+*.log
+*.recipe
+*.lastbuildstate
+*.iobj
+*.ipdb
+ipch/
+
+# IDE
+*.opendb
+*.db
+*.opendb2
+
+# 本地构建脚手架（临时）
+.build/
+
+# 本地备份
+.backup/
+
+# Claude Code memory
+.claude/
+.reasonix/
+.workbuddy/

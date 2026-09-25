@@ -1,0 +1,11 @@
+﻿<Solution>
+  <Configurations>
+    <Configuration Name="Debug" />
+    <Configuration Name="Release" />
+    <BuildType Name="Debug" />
+    <BuildType Name="Release" />
+    <Platform Name="x64" />
+  </Configurations>
+  <Project Path="YuanShen-UnlockerLite.vcxproj" Id="0b44cf9d-66dc-4ea6-baa1-7a89f94ea7f4">
+  </Project>
+</Solution>

@@ -1,0 +1,30 @@
+﻿
+
+# 兜底：文本文件自动判定，二进制不动
+* text=auto
+
+# 源码与工程文件 —— Windows 原生 CRLF
+*.c                 text eol=crlf
+*.h                 text eol=crlf
+*.cpp               text eol=crlf
+*.hpp               text eol=crlf
+*.vcxproj           text eol=crlf
+*.vcxproj.filters   text eol=crlf
+*.vcxproj.user      text eol=crlf
+*.slnx              text eol=crlf
+
+# git 自身的配置文件保持 LF
+# （不写这两条的话，core.autocrlf=true 时会把它俩也转成 CRLF）
+.gitattributes      text eol=lf
+.gitignore          text eol=lf
+
+# 二进制：不做行尾转换，也不做文本 diff
+*.dll    binary
+*.exe    binary
+*.lib    binary
+*.pdb    binary
+*.obj    binary
+*.iobj   binary
+*.ipdb   binary
+*.pch    binary
+*.zip    binary

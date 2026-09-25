@@ -1,0 +1,194 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="src">
+      <UniqueIdentifier>{4a516ae2-8e6d-4a73-938a-eec96a839dbb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Config">
+      <UniqueIdentifier>{2C9E5A74-8B31-4F6D-A0E5-7D14B8C93A26}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Core">
+      <UniqueIdentifier>{79c72599-e203-43eb-92f2-ac379f050e49}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\FovUnlock">
+      <UniqueIdentifier>{7D2A90F3-5C68-41BE-A385-6E4F19B0C752}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\FpsUnlock">
+      <UniqueIdentifier>{5F0D3B82-47C6-4E19-9A8D-3B60E2F17405}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Game">
+      <UniqueIdentifier>{A7E31D94-6B25-4F80-9C3E-2D61B5A8F073}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Hooks">
+      <UniqueIdentifier>{3B7C9E15-6A28-4D0F-8C41-9E5B2A7D3F60}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Ini">
+      <UniqueIdentifier>{C3F81B56-74D2-4A09-8E6B-1F57D0A42C98}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Logger">
+      <UniqueIdentifier>{6E1A4D83-2F57-4B90-A3C8-5D7F0E29B461}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Patterns">
+      <UniqueIdentifier>{D5B8E347-9C16-4A82-B75F-3E09C4D1A672}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\ProcessInfo">
+      <UniqueIdentifier>{8A4F2C61-5E39-4B78-9D02-6C7A1B3E5F48}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Scanner">
+      <UniqueIdentifier>{F19B6C05-3A84-4D27-B6E9-0C58A3F71D24}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\SpawnWatch">
+      <UniqueIdentifier>{2E7C4A19-6B53-4D18-9F24-8A0D3E5C7B61}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Watcher">
+      <UniqueIdentifier>{6D3A9B54-71C8-4E2F-8A06-25C4F1B7D938}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\MinHook">
+      <UniqueIdentifier>{C4E2A8B1-3F7D-4B9E-9A5C-8D1E6F2B7A40}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\MinHook\include">
+      <UniqueIdentifier>{8F1D3C62-A94B-4E07-B2D5-63A8C0F19E17}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\MinHook\src">
+      <UniqueIdentifier>{5B7E9A04-2C61-4D38-8FAE-19C7B0D24E56}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\MinHook\src\hde">
+      <UniqueIdentifier>{E2A6C718-9D43-4F5B-86C0-7B9513AD6F02}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Patterns\Patterns.h">
+      <Filter>src\Patterns</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ProcessInfo\ProcessInfo.h">
+      <Filter>src\ProcessInfo</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Config\Config.h">
+      <Filter>src\Config</Filter>
+    </ClInclude>
+    <ClInclude Include="src\FovUnlock\ExponentialFilter.h">
+      <Filter>src\FovUnlock</Filter>
+    </ClInclude>
+    <ClInclude Include="src\FovUnlock\FovUnlock.h">
+      <Filter>src\FovUnlock</Filter>
+    </ClInclude>
+    <ClInclude Include="src\FpsUnlock\FpsUnlock.h">
+      <Filter>src\FpsUnlock</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\Game.h">
+      <Filter>src\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Hooks\Hooks.h">
+      <Filter>src\Hooks</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Ini\Ini.h">
+      <Filter>src\Ini</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Logger\Logger.h">
+      <Filter>src\Logger</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Scanner\Scanner.h">
+      <Filter>src\Scanner</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SpawnWatch\EnvBlock.h">
+      <Filter>src\SpawnWatch</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SpawnWatch\SpawnWatch.h">
+      <Filter>src\SpawnWatch</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Watcher\Watcher.h">
+      <Filter>src\Watcher</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MinHook\include\MinHook.h">
+      <Filter>src\MinHook\include</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MinHook\src\buffer.h">
+      <Filter>src\MinHook\src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MinHook\src\trampoline.h">
+      <Filter>src\MinHook\src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MinHook\src\hde\hde32.h">
+      <Filter>src\MinHook\src\hde</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MinHook\src\hde\hde64.h">
+      <Filter>src\MinHook\src\hde</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MinHook\src\hde\pstdint.h">
+      <Filter>src\MinHook\src\hde</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MinHook\src\hde\table32.h">
+      <Filter>src\MinHook\src\hde</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MinHook\src\hde\table64.h">
+      <Filter>src\MinHook\src\hde</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Config\Config.cpp">
+      <Filter>src\Config</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Core\dllmain.cpp">
+      <Filter>src\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\FovUnlock\FovUnlock.cpp">
+      <Filter>src\FovUnlock</Filter>
+    </ClCompile>
+    <ClCompile Include="src\FpsUnlock\FpsUnlock.cpp">
+      <Filter>src\FpsUnlock</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ProcessInfo\ProcessInfo.cpp">
+      <Filter>src\ProcessInfo</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\Game.cpp">
+      <Filter>src\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Hooks\Hooks.cpp">
+      <Filter>src\Hooks</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Ini\Ini.cpp">
+      <Filter>src\Ini</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Logger\Logger.cpp">
+      <Filter>src\Logger</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Scanner\Scanner.cpp">
+      <Filter>src\Scanner</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SpawnWatch\EnvBlock.cpp">
+      <Filter>src\SpawnWatch</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SpawnWatch\SpawnWatch.cpp">
+      <Filter>src\SpawnWatch</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Watcher\Watcher.cpp">
+      <Filter>src\Watcher</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MinHook\src\buffer.c">
+      <Filter>src\MinHook\src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MinHook\src\hook.c">
+      <Filter>src\MinHook\src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MinHook\src\trampoline.c">
+      <Filter>src\MinHook\src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MinHook\src\hde\hde64.c">
+      <Filter>src\MinHook\src\hde</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MinHook\src\hde\hde32.c">
+      <Filter>src\MinHook\src\hde</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="src\MinHook\LICENSE.txt">
+      <Filter>src\MinHook</Filter>
+    </None>
+    <CustomBuild Include="src\Config\Config.ini">
+      <Filter>src\Config</Filter>
+    </CustomBuild>
+    <None Include="src\Config\Config.debug.ini">
+      <Filter>src\Config</Filter>
+    </None>
+  </ItemGroup>
+</Project>
