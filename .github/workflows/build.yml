@@ -17,7 +17,7 @@ jobs:
     runs-on: windows-2025
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: 定位 MSBuild 与工具集
         id: vs
@@ -70,7 +70,7 @@ jobs:
           Write-Host ("大小: {0:N0} 字节" -f (Get-Item $zip).Length)
 
       - name: 上传构建产物
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: YuanShen-UnlockerLite-${{ github.sha }}
           path: x64/Release/YuanShen-UnlockerLite.zip
