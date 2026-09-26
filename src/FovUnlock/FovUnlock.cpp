@@ -11,10 +11,10 @@ namespace FovUnlock
     static std::atomic<int>   g_target{ 60 };
     static std::atomic<float> g_scale{ 1.0f };
     static std::atomic<bool>  g_active{ false };
-    
+
     static constexpr float kPassThroughFov = 40.0f;
     static constexpr float kGameDefaultFov = 45.0f;
-    static constexpr int kMinFov = 1;
+    static constexpr int kMinFov = 45;
     static constexpr int kMaxFov = 179;
 
     static int ClampFov(int fov)

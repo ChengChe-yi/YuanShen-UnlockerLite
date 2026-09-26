@@ -9,8 +9,6 @@
 #include "Logger.h"
 #include "Scanner.h"
 
-
-
 namespace Hooks
 {
 
@@ -26,16 +24,6 @@ namespace Hooks
 
     // 把之前 QueueEnable() 排队的项一次性启用（内部冻结线程打补丁）。
     bool ApplyQueued();  // MH_ApplyQueued()
-
-    // ---- 地址解析 ----------------------------------------------------------
-    //
-    // 「基址 + RVA」的解析不在这里：它和 hook 没关系，读/写/调都要用，
-    // 统一放在 Game 模块（Game::ModuleBase / Game::Resolve）。
-    // InstallRva / PrepareRva 内部就是调它。
-
-    // ---- 诊断 ---------------------------------------------------------------
-
-    // MH_STATUS 的可读名直接用 MinHook 自带的 MH_StatusToString()，不再重复实现。
 
     // ---- 热卸载支持 ---------------------------------------------------------
 
@@ -166,8 +154,6 @@ namespace Hooks
         bool      m_enabled  = false;
     };
 
-
-
     template <typename Fn>
     bool Hook<Fn>::Install(void* target, Fn detour)
     {
@@ -175,7 +161,7 @@ namespace Hooks
             return false;
 
         if (!Enable()) {
-            
+
             MH_RemoveHook(m_target);
             m_target  = nullptr;
             m_detour  = nullptr;
@@ -206,7 +192,7 @@ namespace Hooks
     template <typename Fn>
     bool Hook<Fn>::Prepare(void* target, Fn detour)
     {
-        Uninstall();   
+        Uninstall();
 
         if (!target || !detour) {
             m_status = MH_ERROR_NOT_CREATED;
@@ -220,7 +206,6 @@ namespace Hooks
             return false;
         }
 
- 
         void* original = nullptr;
 #pragma warning(push)
 #pragma warning(disable : 4191)
@@ -271,7 +256,6 @@ namespace Hooks
             return false;
         }
 
-
         m_enabled = true;
         return true;
     }
@@ -307,7 +291,6 @@ namespace Hooks
         m_status = MH_RemoveHook(m_target);   // 再释放 trampoline
 
         LOG("Hooks", "已卸载 %p（%s）", m_target, MH_StatusToString(m_status));
-
 
         m_target  = nullptr;
         m_detour  = nullptr;
@@ -349,13 +332,12 @@ namespace Hooks
         return true;
     }
 
-
     template <typename Fn>
     bool Install(Hook<Fn>& hook, Fn detour, const char* name,
                  const char* signature, uintptr_t rva)
     {
         const char* tag = name ? name : "(未命名)";
-        (void)tag;   
+        (void)tag;
 
         uintptr_t addr = 0;
         if (signature && signature[0]) {
@@ -375,7 +357,6 @@ namespace Hooks
 
         return hook.Install(reinterpret_cast<void*>(addr), detour);
     }
-
 
     template <typename Fn>
     bool InstallExport(Hook<Fn>& hook, Fn detour, const char* name,
@@ -399,6 +380,5 @@ namespace Hooks
         return hook.Install(target, detour);
     }
 }
-
 
 #define HOOK_INFLIGHT_SCOPE() ::Hooks::InFlight::Scope hook_inflight_scope_

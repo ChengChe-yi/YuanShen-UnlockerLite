@@ -3,8 +3,6 @@
 #include <windows.h>
 #include "Hooks.h"
 
-
-
 namespace SpawnWatch
 {
     using FnCreateProcessW = BOOL(WINAPI*)(LPCWSTR lpApplicationName,

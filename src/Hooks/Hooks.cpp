@@ -32,8 +32,6 @@ namespace Hooks
         }
     }
 
-
-
     namespace InFlight
     {
 
@@ -50,13 +48,11 @@ namespace Hooks
             while (g_count.load(std::memory_order_seq_cst) != 0) {
                 if (GetTickCount64() >= deadline)
                     return false;
-                Sleep(1);   
+                Sleep(1);
             }
             return true;
         }
     }
-
-
 
     bool EnableAll()
     {
@@ -93,8 +89,6 @@ namespace Hooks
         return true;
     }
 
-
-
     bool Init()
     {
         if (!Detail::EnsureMinHook())
@@ -102,7 +96,6 @@ namespace Hooks
 
         LOG("Hooks", "hook 子系统就绪（MinHook，主模块基址 %p）",
             reinterpret_cast<void*>(Game::ModuleBase()));
-
 
         Install(FovUnlock::SetFieldOfViewHook(),
                 &FovUnlock::DetourSetFieldOfView,

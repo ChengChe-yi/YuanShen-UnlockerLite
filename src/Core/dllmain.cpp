@@ -8,18 +8,16 @@
 #include "ProcessInfo.h"
 #include "Watcher.h"
 
-
-
 namespace
 {
     HMODULE g_hModule = nullptr;
     HANDLE  g_worker  = nullptr;
     HANDLE  g_stop    = nullptr;
 
-    constexpr DWORD kWorkerStopWaitMs = 5000;   
-    constexpr DWORD kInflightDrainMs  = 5000;   
+    constexpr DWORD kWorkerStopWaitMs = 5000;
+    constexpr DWORD kInflightDrainMs  = 5000;
 
-#ifdef _DEBUG 
+#ifdef _DEBUG
 
     constexpr DWORD kDebuggerWaitMs = 60000;
 #endif
@@ -32,7 +30,6 @@ namespace
         FovUnlock::Apply();
     }
 
-	//卸载
     void Shutdown()
     {
         LOG_MSG("Plugin", "开始卸载");
@@ -61,9 +58,9 @@ namespace
 
     DWORD WINAPI WorkerProc(LPVOID)
     {
-        
+
         ProcessInfo::Capture(g_hModule);
-        
+
 #ifdef _DEBUG
         Logger::InitLogFile();
 #endif
@@ -81,7 +78,7 @@ namespace
 
             if (IsDebuggerPresent()) {
                 LOG_MSG("Plugin", "调试器已附加");
-                DebugBreak();          
+                DebugBreak();
             }
             else {
                 LOG_MSG("Plugin", "等待调试器超时，继续初始化");
@@ -114,7 +111,6 @@ namespace
         return 0;
     }
 }
-
 
 //主线程
 #pragma region 主线程
@@ -163,4 +159,3 @@ BOOL APIENTRY DllMain(HMODULE hModule,
 }
 
 #pragma endregion
-

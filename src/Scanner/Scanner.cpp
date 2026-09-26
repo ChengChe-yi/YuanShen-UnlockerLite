@@ -13,7 +13,7 @@ namespace
         uint8_t bytes[kMaxPatternBytes] = {};
         bool    wildcard[kMaxPatternBytes] = {};
         size_t  length = 0;
-        size_t  firstFixed = 0;      
+        size_t  firstFixed = 0;
         bool    hasFixed = false;
     };
 
@@ -24,7 +24,6 @@ namespace
         if (c >= 'A' && c <= 'F') return c - 'A' + 10;
         return -1;
     }
-
 
     bool ParsePattern(const char* signature, Pattern& out)
     {
@@ -45,7 +44,7 @@ namespace
                 out.wildcard[out.length] = true;
                 out.bytes[out.length] = 0;
                 ++p;
-                if (*p == '?')          
+                if (*p == '?')
                     ++p;
             }
             else {
@@ -68,13 +67,12 @@ namespace
         return out.length > 0;
     }
 
-
     uintptr_t ScanTyped(const uint8_t* begin, size_t size, const Pattern& pat)
     {
         if (!begin || !pat.hasFixed || size < pat.length)
             return 0;
 
-        const size_t last = size - pat.length;      
+        const size_t last = size - pat.length;
 
         for (size_t i = 0; i <= last; ) {
 
@@ -95,7 +93,7 @@ namespace
             if (ok)
                 return reinterpret_cast<uintptr_t>(begin + i);
 
-            ++i;                                    
+            ++i;
         }
         return 0;
     }
@@ -108,7 +106,6 @@ namespace Scanner
         Pattern pat;
         if (!start || size == 0 || !ParsePattern(signature, pat))
             return 0;
-
 
         __try {
             return ScanTyped(reinterpret_cast<const uint8_t*>(start), size, pat);
@@ -143,7 +140,7 @@ namespace Scanner
                 continue;
 
             const uintptr_t addr = base + section[i].VirtualAddress;
-            if (!Game::IsReadable(addr, size))      
+            if (!Game::IsReadable(addr, size))
                 continue;
 
             if (const uintptr_t hit = ScanRange(addr, size, signature))

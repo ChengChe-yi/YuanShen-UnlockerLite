@@ -15,7 +15,6 @@ namespace ProcessInfo
         wchar_t   version[64]    = {};
     };
 
-
     struct SelfModule
     {
         HMODULE handle = nullptr;

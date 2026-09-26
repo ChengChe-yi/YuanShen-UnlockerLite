@@ -5,17 +5,12 @@
 #include <cstdint>
 #include <type_traits>
 
-
-
 namespace Game
 {
-    
-
 
     uintptr_t ModuleBase(const wchar_t* module = nullptr);
 
     uintptr_t Resolve(uintptr_t rva, const wchar_t* module = nullptr);
-
 
     bool Query(uintptr_t addr, MEMORY_BASIC_INFORMATION& out);
 
@@ -27,7 +22,6 @@ namespace Game
 
     template <typename T>
     T Read(uintptr_t addr, T fallback = T{});
-
 
     bool ReadUtf8(uintptr_t addr, char* out, size_t cch);
     bool ReadUtf16(uintptr_t addr, wchar_t* out, size_t cch);
@@ -71,7 +65,7 @@ namespace Game
             return false;
 
         __try {
-           
+
             *reinterpret_cast<volatile T*>(addr) = v;
             return true;
         }

@@ -20,9 +20,8 @@ namespace FpsUnlock
 
     static constexpr DWORD kWriteIntervalMs = 500;
 
-    static_assert(kWriteIntervalMs >= 50, "周期太短会变成忙等循环");
-
     static HANDLE g_thread = nullptr;
+    
     static HANDLE g_stop = nullptr;
 
     static constexpr DWORD kThreadStopWaitMs = 3000;
@@ -37,7 +36,6 @@ namespace FpsUnlock
 
         return fps;
     }
-
 
     static uintptr_t ResolveFpsGlobalBySig()
     {
@@ -106,7 +104,6 @@ namespace FpsUnlock
                 static_cast<unsigned long>(mbi.Protect));
             return false;
         }
-
 
         LOG("Fps", "帧率全局 %p（主模块基址 %p + 0x%llX）",
             reinterpret_cast<void*>(addr),
@@ -219,7 +216,7 @@ extern "C" __declspec(dllexport) int SetFps(int fps)
 {
     const int v = (fps <= 0) ? 0 : fps;
     FpsUnlock::g_target.store(v, std::memory_order_relaxed);
-    FpsUnlock::WriteOnce();          
+    FpsUnlock::WriteOnce();
     return FpsUnlock::g_fpsAddr ? 1 : 0;
 }
 

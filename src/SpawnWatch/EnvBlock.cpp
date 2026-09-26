@@ -3,12 +3,10 @@
 #include "EnvBlock.h"
 #include <cwchar>
 
-
 namespace EnvBlock
 {
-  
-    static constexpr size_t kMaxBlockChars = 1u << 18;   
 
+    static constexpr size_t kMaxBlockChars = 1u << 18;
 
     static size_t BoundedLen(const wchar_t* p, const wchar_t* limit)
     {
@@ -18,7 +16,6 @@ namespace EnvBlock
         return static_cast<size_t>(q - p);
     }
 
-
     static size_t BlockChars(const wchar_t* block)
     {
         const wchar_t* const limit = block + kMaxBlockChars;
@@ -26,22 +23,21 @@ namespace EnvBlock
 
         for (;;) {
             if (p >= limit)
-                return 0;                                  
+                return 0;
             if (*p == 0)
-                return static_cast<size_t>(p - block) + 1;  
+                return static_cast<size_t>(p - block) + 1;
 
             const size_t len = BoundedLen(p, limit);
             if (p + len >= limit)
-                return 0;                                 
+                return 0;
             p += len + 1;
         }
     }
 
-
     static bool SameName(const wchar_t* entry, size_t entryLen,
                          const wchar_t* name, size_t nameLen)
     {
-        if (entryLen < nameLen + 1)          
+        if (entryLen < nameLen + 1)
             return false;
 
         for (size_t i = 0; i < nameLen; ++i) {
@@ -82,9 +78,7 @@ namespace EnvBlock
         const size_t valueLen = value ? wcslen(value) : 0;
         const size_t entryLen = nameLen + 1 + valueLen;
 
-
         const wchar_t* const dataEnd = src + srcChars - 1;
-
 
         size_t total = 0;
         bool replaced = false;
@@ -102,13 +96,12 @@ namespace EnvBlock
         }
         if (!replaced)
             total += entryLen + 1;
-        ++total;                                          
+        ++total;
 
         wchar_t* out = static_cast<wchar_t*>(
             HeapAlloc(GetProcessHeap(), 0, total * sizeof(wchar_t)));
         if (!out)
             return nullptr;
-
 
         wchar_t* dst = out;
         replaced = false;

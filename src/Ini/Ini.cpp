@@ -24,7 +24,6 @@ namespace
         return true;
     }
 
-
     bool EqI(const char* a, const char* b)
     {
         while (*a && *b) {
@@ -167,7 +166,6 @@ namespace Ini
 
         const char* sectionEnd = FindSectionEnd(headerStart);
 
-
         const char* pos = strchr(headerStart, '\n');
         if (!pos)
             return false;
@@ -184,7 +182,7 @@ namespace Ini
             while (p < lineEnd && (*p == ' ' || *p == '\t'))
                 ++p;
 
-            if (*p != ';' && *p != '#') {          
+            if (*p != ';' && *p != '#') {
                 const char* eq = nullptr;
                 for (const char* q = p; q < lineEnd; ++q) {
                     if (*q == '=') { eq = q; break; }
@@ -234,9 +232,8 @@ namespace Ini
         char* end = nullptr;
         errno = 0;
         const long long v = strtoll(p, &end, 10);
-        if (end == p)                             
+        if (end == p)
             return fallback;
-
 
         while (*end == ' ' || *end == '\t')
             ++end;
@@ -286,7 +283,7 @@ namespace Ini
 
             if (trimmed[0] && trimmed[0] != ';' && trimmed[0] != '#') {
                 if (!cb(trimmed, ctx))
-                    return true;                   
+                    return true;
             }
 
             pos = nl + 1;

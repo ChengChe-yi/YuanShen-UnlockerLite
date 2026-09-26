@@ -11,9 +11,8 @@ namespace
             return false;
 
         const uintptr_t end = addr + bytes;
-        if (end < addr)                        
+        if (end < addr)
             return false;
-
 
         const DWORD readOk =
             PAGE_READONLY | PAGE_READWRITE | PAGE_WRITECOPY |
@@ -30,13 +29,13 @@ namespace
                 return false;
             if (mbi.State != MEM_COMMIT)
                 return false;
-            if (mbi.Protect & PAGE_GUARD)      
+            if (mbi.Protect & PAGE_GUARD)
                 return false;
             if ((mbi.Protect & want) == 0)
                 return false;
 
             const uintptr_t regionEnd = reinterpret_cast<uintptr_t>(mbi.BaseAddress) + mbi.RegionSize;
-            if (regionEnd <= cur)             
+            if (regionEnd <= cur)
                 return false;
             cur = regionEnd;
         }
@@ -64,7 +63,7 @@ namespace
             return true;
         }
         __except (EXCEPTION_EXECUTE_HANDLER) {
-            out[0] = CharT{};                 
+            out[0] = CharT{};
             return false;
         }
     }

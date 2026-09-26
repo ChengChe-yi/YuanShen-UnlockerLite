@@ -20,9 +20,7 @@ namespace Config
         ReleaseSRWLockExclusive(&g_lock);
     }
 
-
     static const wchar_t kIniFileName[] = L"Config.ini";
-
 
     static bool ResolveIniPath()
     {
@@ -31,7 +29,6 @@ namespace Config
             return false;
         return swprintf_s(g_iniPath, L"%s\\%s", dir, kIniFileName) > 0;
     }
-
 
     static bool ReadBool(const char* ini, const char* section, bool fallback)
     {
@@ -48,7 +45,6 @@ namespace Config
             return fallback;
         return Ini::ParseInt(buf, fallback);
     }
-
 
     static void ReadInto(const char* ini, Values& v)
     {
@@ -95,7 +91,7 @@ namespace Config
 
     void Reload()
     {
-        Values v = Snapshot();                       
+        Values v = Snapshot();
         if (LoadInto(v))
             Publish(v);
 

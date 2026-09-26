@@ -2,7 +2,6 @@
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>
 
-
 namespace FpsUnlock
 {
 
@@ -12,7 +11,6 @@ namespace FpsUnlock
 
     void Uninit();
 }
-
 
 extern "C" __declspec(dllexport) int SetFps(int fps);
 

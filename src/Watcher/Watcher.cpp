@@ -14,9 +14,9 @@ namespace Watcher
 
     static HANDLE  s_thread   = nullptr;
     static HANDLE  s_stop     = nullptr;
-    static wchar_t s_filePath[MAX_PATH] = {};   
-    static wchar_t s_dirW[MAX_PATH]     = {};   
-    static wchar_t s_fileName[MAX_PATH] = {};   
+    static wchar_t s_filePath[MAX_PATH] = {};
+    static wchar_t s_dirW[MAX_PATH]     = {};
+    static wchar_t s_fileName[MAX_PATH] = {};
     static void (*s_onChange)() = nullptr;
 
     static ULONGLONG s_mtime  = 0;
@@ -157,13 +157,11 @@ namespace Watcher
                     continue;
                 }
 
-
                 if (!GetOverlappedResult(dir, &ovl, &bytes, FALSE))
                     bytes = 0;
 
                 if (!BufferMentionsTarget(buffer, bytes))
-                    continue;                               
-
+                    continue;
 
                 if (WaitForSingleObject(s_stop, kDebounceMs) == WAIT_OBJECT_0)
                     break;
@@ -194,7 +192,7 @@ namespace Watcher
     bool Start(const wchar_t* filePath, void (*onChange)())
     {
         if (s_thread)
-            return true;                       
+            return true;
 
         if (!filePath || !*filePath || !onChange)
             return false;

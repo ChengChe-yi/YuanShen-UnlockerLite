@@ -15,7 +15,6 @@ namespace SpawnWatch
     static constexpr wchar_t kCompatLayerVar[]   = L"__COMPAT_LAYER";
     static constexpr wchar_t kCompatLayerValue[] = L"VISTASP2";
 
-
     static constexpr size_t kFieldBytes = 512;
     static constexpr size_t kMaxWideChars = 160;
 
@@ -46,7 +45,6 @@ namespace SpawnWatch
         wcsncpy_s(out, outChars, start, n);
     }
 
-
     static void ImageName(const wchar_t* appName, const wchar_t* cmdLine,
                           wchar_t* out, size_t outChars)
     {
@@ -55,7 +53,6 @@ namespace SpawnWatch
         else
             FirstToken(cmdLine, out, outChars);
     }
-
 
     static bool IsBrowserImage(const wchar_t* image)
     {
@@ -66,7 +63,6 @@ namespace SpawnWatch
         base = base ? base + 1 : image;
         return _wcsicmp(base, kBrowserImage) == 0;
     }
-
 
     static void ToUtf8(const wchar_t* src, char* out, size_t outBytes, size_t maxChars)
     {
@@ -88,7 +84,6 @@ namespace SpawnWatch
                                 static_cast<int>(outBytes), nullptr, nullptr) <= 0)
             out[0] = 0;
     }
-
 
     static void RealOsVersion(DWORD* major, DWORD* minor)
     {
@@ -113,7 +108,6 @@ namespace SpawnWatch
             }
         }
 
-
         OSVERSIONINFOW vi = {};
         vi.dwOSVersionInfoSize = sizeof(vi);
 #pragma warning(suppress : 4996)
@@ -122,7 +116,6 @@ namespace SpawnWatch
             *minor = vi.dwMinorVersion;
         }
     }
-
 
     static bool CompatLayerNeeded()
     {
@@ -201,15 +194,13 @@ namespace SpawnWatch
             ToUtf8(image, shown, sizeof(shown), kMaxWideChars);
             LOG("Spawn", "命中目标进程：%s", shown[0] ? shown : "(路径取不到)");
 
-            if (kCompatLayerValue[0] == 0) {
-
-                LOG_MSG("Spawn", "兼容层注入已关闭（kCompatLayerValue 留空），原样放行");
-            } else if (!CompatLayerNeeded()) {
+            if (!CompatLayerNeeded()) {
                 DWORD major = 0, minor = 0;
                 RealOsVersion(&major, &minor);
                 LOG("Spawn", "系统 %lu.%lu 早于 Windows 8（本来就没有 DirectComposition），"
                              "跳过注入、原样放行", major, minor);
             } else {
+
                 newEnv = TryBuildCompatEnv(lpEnvironment, dwCreationFlags);
                 if (newEnv) {
                     envToPass = newEnv;
@@ -224,7 +215,7 @@ namespace SpawnWatch
         FnCreateProcessW original = g_createProcessW.Original();
         if (!original) {
             EnvBlock::Free(newEnv);
-            return FALSE;  
+            return FALSE;
         }
 
         const BOOL ok = original(lpApplicationName, lpCommandLine,

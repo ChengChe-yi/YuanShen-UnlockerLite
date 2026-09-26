@@ -4,8 +4,6 @@
 #include <cstdio>
 #include <atomic>
 
-
-
 namespace Logger
 {
 
@@ -13,13 +11,10 @@ namespace Logger
 
     void InitLogFile();
 
-
     void WriteLog(const char* text);
-
 
     void CloseLog();
 }
-
 
 #ifdef _DEBUG
 
