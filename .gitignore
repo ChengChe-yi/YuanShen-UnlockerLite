@@ -36,6 +36,9 @@ ipch/
 # 本地备份
 .backup/
 
+# 插件安装脚本（由启动器生成，不属于源码）
+install.lua
+
 # Claude Code memory
 .claude/
 .reasonix/
