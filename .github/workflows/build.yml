@@ -1,11 +1,28 @@
 name: Build & Release
 
 on:
+  # 只认 tag，push 到 main 不再触发。
+  #   v*      -> 构建 + 发布 Release
+  #   build-* -> 只构建、只上传 artifact，不发布（用来验证发布产物）
   push:
-    branches: [main]
-    tags: ['v*']
+    tags:
+      - 'v*'
+      - 'build-*'
+
+  # PR 上做编译校验；只动文档的 PR 跳过，省一次 Windows 构建。
   pull_request:
+    paths-ignore:
+      - '**.md'
+      - 'LICENSE'
+      - '.gitignore'
+      - '.gitattributes'
+
   workflow_dispatch:
+
+# 同一分支/PR 上的新推送取消还在跑的旧任务，避免排队堆积。
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 permissions:
   contents: write        # 打 tag 时要创建 Release
@@ -76,6 +93,7 @@ jobs:
           path: x64/Release/YuanShen-UnlockerLite.zip
 
       - name: 打 tag 时发布 Release
+        # 只有 v* tag 发布；build-* tag 走到这里会跳过，只留 artifact。
         if: startsWith(github.ref, 'refs/tags/v')
         shell: pwsh
         env:
