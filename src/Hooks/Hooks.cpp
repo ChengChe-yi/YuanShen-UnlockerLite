@@ -2,6 +2,7 @@
 #include <windows.h>
 #include "Hooks.h"
 #include "FovUnlock.h"
+#include "FpsUnlock.h"
 #include "Game.h"
 #include "Patterns.h"
 #include "SpawnWatch.h"
@@ -101,6 +102,13 @@ namespace Hooks
                 &FovUnlock::DetourSetFieldOfView,
                 "Camera.set_fieldOfView",
                 Patterns::Sig::CameraSetFieldOfView, 0);
+
+
+        InstallCallTarget(FpsUnlock::GetTargetFrameRateHook(),
+                          &FpsUnlock::DetourGetTargetFrameRate,
+                          "Application.get_targetFrameRate",
+                          Patterns::Sig::TargetFrameRateGetterCall,
+                          Patterns::Rva::TargetFrameRateGetter);
 
         // 给游戏内网页的浏览器进程注入兼容层
         InstallExport(SpawnWatch::CreateProcessWHook(),

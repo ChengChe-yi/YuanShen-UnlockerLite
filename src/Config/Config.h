@@ -9,7 +9,9 @@ namespace Config
         // [Fps]
         bool  fpsEnabled        = true;    // Value，帧率解锁开关
         // [TargetFps]
-        int   targetFps         = 240;     // Value，0 或负数 = 不限帧
+        int   targetFps         = 240;     // Value，0 或负数 = 不限帧（内部折算成 999）
+        // [FpsGetterClamp]
+        bool  fpsGetterClamp    = false;   // Value，把 getter 返回值钳到官方上限
 
         // [Fov]
         bool  fovEnabled        = false;   // Value，默认关闭

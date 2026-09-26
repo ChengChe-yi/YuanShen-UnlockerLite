@@ -18,6 +18,15 @@ namespace FpsUnlock
 
     static std::atomic<bool> g_enabled{ false };
 
+
+    static std::atomic<bool> g_clampEnabled{ false };
+
+    static constexpr int kGetterClampMax = 120;
+
+    // "不限帧"统一写成这个值：贴着引擎硬上限 1000，等效不限帧，
+    // 但本身是个合法正整数。写 0 / 负数会让游戏闪退，不能落到全局里。
+    static constexpr int kUnlimitedFps = 999;
+
     static constexpr DWORD kWriteIntervalMs = 500;
 
     static HANDLE g_thread = nullptr;
@@ -26,15 +35,42 @@ namespace FpsUnlock
 
     static constexpr DWORD kThreadStopWaitMs = 3000;
 
+    static Hooks::Hook<FnGetTargetFrameRate> g_getterHook;
+
     static int NormalizeTarget(int fps)
     {
+        // 0 和负数都不能直接写进全局（会让游戏闪退），折算成 kUnlimitedFps。
         if (fps <= 0)
-            return 0;
+            return kUnlimitedFps;
 
         if (fps > 1000)
             LOG("Fps", "目标 %d 超过游戏硬上限 1000（sub_1416A6790 里的 fminf），实际只会有 1000", fps);
 
         return fps;
+    }
+
+    Hooks::Hook<FnGetTargetFrameRate>& GetTargetFrameRateHook() { return g_getterHook; }
+
+    int __fastcall DetourGetTargetFrameRate()
+    {
+        HOOK_INFLIGHT_SCOPE();
+
+        const bool clamp = g_clampEnabled.load(std::memory_order_relaxed);
+
+        FnGetTargetFrameRate original = g_getterHook.Original();
+        if (!original)
+            return clamp ? kGetterClampMax : kUnlimitedFps;
+
+        const int value = original();
+
+        // 0 / 负数会让游戏闪退，也不是合法的目标帧率，折算成 kUnlimitedFps。
+        int out = (value <= 0) ? kUnlimitedFps : value;
+
+        // 开钳制时对外一律不超过上限（折算后的 999 也会一起被压下来）。
+        if (clamp && out > kGetterClampMax)
+            out = kGetterClampMax;
+
+        return out;
     }
 
     static uintptr_t ResolveFpsGlobalBySig()
@@ -170,6 +206,7 @@ namespace FpsUnlock
 
         g_target.store(NormalizeTarget(cfg.targetFps), std::memory_order_relaxed);
         g_enabled.store(cfg.fpsEnabled, std::memory_order_relaxed);
+        g_clampEnabled.store(cfg.fpsGetterClamp, std::memory_order_relaxed);
 
         if (!cfg.fpsEnabled) {
             LOG_MSG("Fps", "配置里已关闭：停止周期性覆写");
@@ -181,8 +218,9 @@ namespace FpsUnlock
 
         WriteOnce();
 
-        LOG("Fps", "已应用：目标 %d fps，覆写间隔 %lu ms",
-            g_target.load(std::memory_order_relaxed), kWriteIntervalMs);
+        LOG("Fps", "已应用：目标 %d fps，覆写间隔 %lu ms，getter 钳制=%d（上限 %d）",
+            g_target.load(std::memory_order_relaxed), kWriteIntervalMs,
+            cfg.fpsGetterClamp ? 1 : 0, kGetterClampMax);
     }
 
     bool Init()
@@ -197,6 +235,10 @@ namespace FpsUnlock
 
     void Uninit()
     {
+        // 先停钳制，避免卸载过程中 getter 还往 detour 里进。
+        g_clampEnabled.store(false, std::memory_order_relaxed);
+        g_getterHook.Detach();
+
         if (g_stop) {
             SetEvent(g_stop);
             if (g_thread) {
@@ -214,8 +256,7 @@ namespace FpsUnlock
 
 extern "C" __declspec(dllexport) int SetFps(int fps)
 {
-    const int v = (fps <= 0) ? 0 : fps;
-    FpsUnlock::g_target.store(v, std::memory_order_relaxed);
+    FpsUnlock::g_target.store(FpsUnlock::NormalizeTarget(fps), std::memory_order_relaxed);
     FpsUnlock::WriteOnce();
     return FpsUnlock::g_fpsAddr ? 1 : 0;
 }

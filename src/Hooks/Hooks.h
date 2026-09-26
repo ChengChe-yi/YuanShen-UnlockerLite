@@ -379,6 +379,33 @@ namespace Hooks
 
         return hook.Install(target, detour);
     }
+
+    template <typename Fn>
+    bool InstallCallTarget(Hook<Fn>& hook, Fn detour, const char* name,
+                           const char* callSignature, uintptr_t fallbackRva)
+    {
+        const char* tag = name ? name : "(未命名)";
+
+        uintptr_t addr = 0;
+        if (callSignature && callSignature[0]) {
+            const uintptr_t hit = Scanner::ScanMainMod(callSignature);
+            if (hit)
+                addr = Scanner::ResolveRelative(hit, 1, 5);
+
+            if (!addr)
+                LOG("Hooks", "%s：调用点签名未命中或 rel32 解析失败，改用 RVA 兜底", tag);
+        }
+
+        if (!addr)
+            addr = Game::Resolve(fallbackRva);
+
+        if (!addr) {
+            LOG("Hooks", "%s：签名与 RVA 都没给出地址，放弃安装", tag);
+            return false;
+        }
+
+        return hook.Install(reinterpret_cast<void*>(addr), detour);
+    }
 }
 
 #define HOOK_INFLIGHT_SCOPE() ::Hooks::InFlight::Scope hook_inflight_scope_
